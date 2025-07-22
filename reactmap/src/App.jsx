@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
+
+// --- 設定項目 ---
+const GRID_SIZE = 16; // グリッドのサイズ（16x16）
+const PIXEL_SIZE = 30; // 1ピクセルの大きさ（30px）
+const INITIAL_COLOR = '#ffffff'; // 初期の色（白）
+const DRAW_COLOR = '#000000'; // 描画する色（黒）
+// ----------------
 
 function App() {
-  const [count, setCount] = useState(0)
+  // グリッドの状態を管理する変数
+  // Array(GRID_SIZE * GRID_SIZE).fill(INITIAL_COLOR) で、
+  // 全てのピクセルを初期の色で埋めた配列を作成します。
+  const [pixels, setPixels] = useState(
+    Array(GRID_SIZE * GRID_SIZE).fill(INITIAL_COLOR)
+  );
+
+  // ピクセルがクリックされたときの処理
+  const handlePixelClick = (index) => {
+    // pixels配列のコピーを作成します
+    const newPixels = [...pixels];
+    // クリックされたピクセルの色を描画色に変更します
+    newPixels[index] = DRAW_COLOR;
+    // stateを更新して画面を再描画します
+    setPixels(newPixels);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container">
+      <h1>React ドット絵ツール</h1>
+      <div
+        className="pixel-grid"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(${GRID_SIZE}, ${PIXEL_SIZE}px)`,
+          gridTemplateRows: `repeat(${GRID_SIZE}, ${PIXEL_SIZE}px)`,
+          width: `${GRID_SIZE * PIXEL_SIZE}px`,
+        }}
+      >
+        {pixels.map((color, index) => (
+          <div
+            key={index}
+            className="pixel"
+            style={{ backgroundColor: color }}
+            onClick={() => handlePixelClick(index)}
+          />
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
