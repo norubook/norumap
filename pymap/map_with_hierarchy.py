@@ -57,7 +57,7 @@ from pygame.locals import*
 import json
 import csv
 
-SCREEN_SIZE = [1000,1000]
+SCREEN_SIZE = [500,500]
 
 
 
@@ -291,7 +291,7 @@ def main():
     padding = 20
 
     #csvから階層構造データの読み取り
-    is_exist_hierarchy,num_hierarchy,map_name_datas =load_hierarchy("pymap/pymap/hierarchy_v2/hierarchy_sample_v2.2.csv")
+    is_exist_hierarchy,num_hierarchy,map_name_datas =load_hierarchy("hierarchy_v2/hierarchy_sample_v2.2.csv")
 
     #mapに記述する階層構造の情報の初期化
     stock_hierarchy = "None"
@@ -312,7 +312,7 @@ def main():
             hierarchy_button_x = 100
             hierarchy_button_y = 100 + i * (button_height + padding)
             rect = pygame.Rect(hierarchy_button_x, hierarchy_button_y, button_width, button_height)
-            hierarchy_buttons.append({"rect": rect, "stage_id": i , "map_loc": f"pymap/pymap/mapdata_v2/mapdata_{map_name_datas[i]}.csv"})
+            hierarchy_buttons.append({"rect": rect, "stage_id": i , "map_loc": f"mapdata_v2/mapdata_{map_name_datas[i]}.csv"})
         
         
         if (current_state == state_map):
@@ -396,17 +396,21 @@ def main():
                         stock_hierarchy="None"
                 elif(event.key== pygame.K_6):
                     modes["limited_save"] = (modes["limited_save"])
+                elif(event.key== pygame.K_7):
+                    all_mode_off(modes)
+                    screen.fill((255,255,255))
+                    current_state=state_hierarchy
                 elif (event.key == pygame.K_RETURN) & (modes["input_save"] == True):
                     modes["input_save"] = False
                     if modes["limited_save"]:
-                        save_grid(f"pymap/pymap/mapdata_v2/mapdata_v2_{input_text}.csv",CELL_SIZE,screen,input_text,500,500,display_map,stock_hierarchy,f"v2_{input_text}")
+                        save_grid(f"mapdata_v2/mapdata_v2_{input_text}.csv",CELL_SIZE,screen,input_text,500,500,display_map,stock_hierarchy,f"v2_{input_text}")
                     else:
-                        save_grid(f"pymap/pymap/mapdata_v2/map_date_v2_{input_text}.csv",CELL_SIZE,screen,input_text,1000,1000,display_map,stock_hierarchy,f"v2_{input_text}")
+                        save_grid(f"mapdata_v2/map_date_v2_{input_text}.csv",CELL_SIZE,screen,input_text,1000,1000,display_map,stock_hierarchy,f"v2_{input_text}")
                     stock_hierarchy = "None"
                 elif (event.key == pygame.K_RETURN) & (modes["input_load"] == True):
                     modes["input_load"] = False
                     
-                    load_grid(f"pymap/pymap/mapdata_v2/mapdata_v2_{input_text}.csv",display_map,load_start_point,max_CELL_num)
+                    load_grid(f"mapdata_v2/mapdata_v2_{input_text}.csv",display_map,load_start_point,max_CELL_num)
                 elif (event.key == pygame.K_RETURN) & (modes["hierarchy"] == True):
                     modes["hierarchy"] = False
                     if(input_text!=""):

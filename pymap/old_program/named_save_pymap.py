@@ -123,14 +123,14 @@ def main():
                     input_text = ""
                 elif (event.key == pygame.K_RETURN) & (input_active_save == True):
                     input_active_save = False
-                    save_grid(f"pymap/pymap/mapdata_{input_text}.csv",CELL_SIZE,screen)
+                    save_grid(f"old_program/map_data/mapdata_{input_text}.csv",CELL_SIZE,screen)
                 elif (event.key == pygame.K_l) & (input_active_load == False) :
                     input_active_load = True
                     input_active_save = False
                     input_text = ""
                 elif (event.key == pygame.K_RETURN) & (input_active_load == True):
                     input_active_load = False
-                    load_grid(f"pymap/pymap/mapdata_{input_text}.csv",CELL_SIZE,screen)
+                    load_grid(f"./map_data/old_program/mapdata_{input_text}.csv",CELL_SIZE,screen)
 
         pygame.display.flip()
             
