@@ -45,3 +45,23 @@
 「5」キーを押すことでマップから階層構造の「何階を選択するか」といったステージ選択のような画面に移動
 (4キーを押してどの階層構造にジャンプするか指定しておかないとジャンプしない)
 
+
+# パッケージ
+
+- basic_setting.py
+
+基本的な関数や辞書を記入．
+
+color_code,modes,all_mode_off()
+
+- load_function_v2.py
+
+mapのloadingに関するプログラム
+
+load_ver2(),load_grid(),load_hierarchy(),status_hierarchy()
+
+- save_function_v2.py
+
+mapの保存に関するプログラム
+
+save_grid(),save_hierarchy()
